@@ -8,7 +8,7 @@ import (
 	libp2p "github.com/libp2p/go-libp2p"
 )
 
-//server
+//! TEST FUNCTION TO BE REMOVED
 func Server() {
 	h, err := libp2p.New()
 	if err != nil {
