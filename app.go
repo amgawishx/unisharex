@@ -3,21 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
-	"log"
-
-	libp2p "github.com/libp2p/go-libp2p"
 )
-
-//! TEST FUNCTION TO BE REMOVED
-func Server() {
-	h, err := libp2p.New()
-	if err != nil {
-		panic(err)
-	}
-	defer h.Close()
-	log.Printf("Hello World, my hosts ID is %s\n", h.ID())
-
-}
 
 // App struct
 type App struct {
@@ -26,7 +12,6 @@ type App struct {
 
 // NewApp creates a new App application struct
 func NewApp() *App {
-	Server()
 	return &App{}
 }
 
