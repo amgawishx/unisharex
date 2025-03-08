@@ -1,0 +1,16 @@
+namespace idm.frame;
+
+enum f_mode: byte {
+    w, r
+}
+
+struct f_chkpnt {
+    ptr_ofst: short;
+}
+
+table s_buffer {
+    fpath: string;
+    chkpnt: f_chkpnt;
+    data: [ubyte];
+    mode: f_mode;
+}
