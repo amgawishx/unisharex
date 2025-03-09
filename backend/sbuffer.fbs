@@ -5,7 +5,8 @@ enum f_mode: byte {
 }
 
 struct f_chkpnt {
-    ptr_ofst: short;
+    buffer_s: uint;
+    ptr_ofst: uint;
 }
 
 table s_buffer {
