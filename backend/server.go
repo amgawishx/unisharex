@@ -84,7 +84,7 @@ func receiver(ctx context.Context) {
 		fmt.Printf("✅ Secure Message Received: %+v\n", msg)
 	})
 
-	peerChan := initMDNS(host)
+	go initMDNS(host)
 	fmt.Printf("🔐 Secure Receiver started. Peer ID: %s\n", host.ID())
 	fmt.Println("Listening on:")
 	for _, addr := range host.Addrs() {
@@ -92,15 +92,16 @@ func receiver(ctx context.Context) {
 	}
 
 	// Handle incoming peer discovery
-	for {
-		peer := <-peerChan
-		fmt.Println("Auto-discovered peer:", peer.ID)
-		if err := host.Connect(ctx, peer); err != nil {
-			fmt.Println("Connection failed:", err)
-			continue
-		}
-		fmt.Println("Connected to:", peer.ID)
-	}
+	// for {
+	// 	peer := <-peerChan
+	// 	fmt.Println("Auto-discovered peer:", peer.ID)
+	// 	if err := host.Connect(ctx, peer); err != nil {
+	// 		fmt.Println("Connection failed:", err)
+	// 		continue
+	// 	}
+	// 	fmt.Println("Connected to:", peer.ID)
+	// }
+	select {}
 }
 
 // Sender sends a JSON message securely to discovered peers
