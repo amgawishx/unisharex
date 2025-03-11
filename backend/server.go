@@ -6,7 +6,9 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"net"
 	"os"
+	"runtime"
 
 	libp2p "github.com/libp2p/go-libp2p"
 	"github.com/libp2p/go-libp2p/core/crypto"
@@ -25,6 +27,32 @@ type Message struct {
 	Type    string `json:"type"`
 	Content string `json:"content"`
 }
+
+// metadata of node
+type NodeMetadata struct {
+	Name string `json:"name"`
+	OS   string `json:"os"`
+	IP   string `json:"content"`
+}
+
+func NewNodeMetadata() *NodeMetadata {
+	hostname, _ := os.Hostname()
+	ip := "Unknown"
+
+	conn, err := net.Dial("udp", "192.168.1.1:80") // Target any local network address
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+	defer conn.Close()
+	ip = conn.LocalAddr().(*net.UDPAddr).IP.String()
+
+	return &NodeMetadata{
+		Name: hostname,
+		OS:   runtime.GOOS,
+		IP:   ip,
+	}
+}
+
 
 // discoveryNotifee implements mdns.Notifee for peer discovery
 type discoveryNotifee struct {
